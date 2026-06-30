@@ -1,0 +1,185 @@
+{
+  "reactjs": "React",
+  "react.js": "React",
+  "react js": "React",
+
+  "node": "Node.js",
+  "nodejs": "Node.js",
+  "node js": "Node.js",
+
+  "express": "Express.js",
+  "expressjs": "Express.js",
+
+  "vue": "Vue.js",
+  "vuejs": "Vue.js",
+
+  "next": "Next.js",
+  "nextjs": "Next.js",
+
+  "angularjs": "Angular",
+  "angular js": "Angular",
+
+  "js": "JavaScript",
+  "ts": "TypeScript",
+
+  "mongo": "MongoDB",
+  "mongodb database": "MongoDB",
+
+  "mysql db": "MySQL",
+  "postgres": "PostgreSQL",
+  "postgresql db": "PostgreSQL",
+
+  "aws cloud": "AWS",
+  "amazon web services": "AWS",
+  "amazon aws": "AWS",
+
+  "gcp": "Google Cloud Platform",
+  "google cloud": "Google Cloud Platform",
+
+  "azure cloud": "Azure",
+
+  "docker container": "Docker",
+  "k8s": "Kubernetes",
+
+  "tf": "TensorFlow",
+  "tensorflow framework": "TensorFlow",
+
+  "pytorch framework": "PyTorch",
+
+  "sklearn": "Scikit-learn",
+  "scikit learn": "Scikit-learn",
+
+  "nlp": "Natural Language Processing",
+  "cv": "Computer Vision",
+
+  "ml": "Machine Learning",
+  "dl": "Deep Learning",
+
+  "oop": "Object-Oriented Programming",
+
+  "dsa": "Data Structures and Algorithms",
+
+  "rest": "REST API",
+  "restful api": "REST API",
+
+  "graphql api": "GraphQL",
+
+  "ci/cd": "CI/CD",
+  "cicd": "CI/CD",
+
+  "gh actions": "GitHub Actions",
+
+  "jenkins pipeline": "Jenkins",
+
+  "linux os": "Linux",
+
+  "bash scripting": "Bash",
+
+  "selenium webdriver": "Selenium",
+  "pytest framework": "PyTest",
+
+  "api test": "API Testing",
+  "automation test": "Automation Testing",
+
+  "manual test": "Manual Testing",
+
+  "powerbi": "Power BI",
+
+  "ms excel": "Excel",
+
+  "figma design": "Figma",
+
+  "adobe xd design": "Adobe XD",
+
+  "jira software": "JIRA",
+
+  "scrum methodology": "Scrum",
+
+  "kanban board": "Kanban",
+
+  "object oriented programming": "Object-Oriented Programming",
+
+  "data structures": "Data Structures",
+  "algorithms": "Algorithms",
+
+  "microservice": "Microservices",
+
+  "system architecture": "System Design",
+
+  "penetration testing": "Penetration Testing",
+
+  "ethical hacker": "Ethical Hacking",
+
+  "network sec": "Network Security",
+
+  "salesforce crm": "Salesforce",
+
+  "sap erp": "SAP",
+
+  "servicenow platform": "ServiceNow",
+  
+  "sol" : "Solidity",
+  "eth": "Ethereum",
+  "smart contract": "Smart Contracts",
+  "web3": "Web3.js",
+
+  "spark": "Apache Spark",
+  "apache spark": "Apache Spark",
+  "airflow": "Apache Airflow",
+  "bigquery": "BigQuery",
+  "redshift": "Redshift",
+
+  "tcp": "TCP/IP",
+  "tcp/ip networking": "TCP/IP",
+  "dns management": "DNS",
+  "vpn setup": "VPN",
+
+  "embedded c": "Embedded C",
+  "microcontroller": "Microcontrollers",
+  "rtos systems": "RTOS",
+  "iot development": "IoT",
+
+  "unity3d": "Unity",
+  "unity engine": "Unity",
+  "unreal": "Unreal Engine",
+  "unrealengine": "Unreal Engine",
+
+  "ar": "Augmented Reality",
+  "vr": "Virtual Reality",
+  "arcore sdk": "ARCore",
+  "arkit sdk": "ARKit",
+
+  "windows os": "Windows",
+  "ubuntu linux": "Ubuntu",
+  "centos linux": "CentOS",
+
+  "tech support": "Technical Support",
+  "customer handling": "Customer Support",
+  "issue resolution": "Troubleshooting",
+
+  "finance": "Financial Analysis",
+  "book keeping": "Bookkeeping",
+  "payroll processing": "Payroll",
+  "accounts payable process": "Accounts Payable",
+  "accounts receivable process": "Accounts Receivable",
+
+  "medical coding specialist": "Medical Coding",
+  "clinical trials": "Clinical Research",
+  "patient handling": "Patient Care",
+
+  "talent acquisition specialist": "Talent Acquisition",
+  "employee engagement": "Employee Relations",
+  "hr reporting": "HR Analytics",
+
+  "seo optimization": "SEO",
+  "search engine optimization": "SEO",
+  "search engine marketing": "SEM",
+  "digital ads": "Digital Marketing",
+  "social media ads": "Social Media Marketing",
+
+  "lead gen": "Lead Generation",
+  "b2b selling": "B2B Sales",
+  "b2c selling": "B2C Sales",
+  "crm management": "CRM"
+
+}
