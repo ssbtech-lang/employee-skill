@@ -13,6 +13,13 @@ Backend:
 
 * Node.js
 * Express.js
+* 
+ AI / Parsing:
+
+* Python
+* spaCy
+* pdfplumber
+* python-docx
 
 Database:
 
@@ -49,6 +56,15 @@ Testing:
 * Update Skill
 * Delete Skill
 
+### Resume Parser
+* Upload Resume (PDF/DOCX)
+* Parse Resume using Python
+* Extract Name
+* Extract Email
+* Extract Skills
+* Normalize Skills using aliases
+* Return Parsed JSON
+
 ---
 
 ## Current API Endpoints
@@ -75,6 +91,10 @@ PUT /api/skills/:id
 
 DELETE /api/skills/:id
 
+Resume:
+
+POST /api/resume/parse-resume
+
 ---
 
 ## Setup Instructions
@@ -90,6 +110,14 @@ cd backend
 Install dependencies:
 
 npm install
+
+Install parser dependencies:
+
+pip install pdfplumber python-docx spacy
+
+Download spaCy model:
+
+python -m spacy download en_core_web_sm
 
 Create .env file:
 
