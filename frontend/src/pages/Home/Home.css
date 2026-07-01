@@ -1,0 +1,259 @@
+.home-container {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f8f6ff 0%, #ede9fe 50%, #faf5ff 100%);
+}
+
+.hero-section {
+  text-align: center;
+  max-width: 900px;
+  margin-bottom: 60px;
+}
+
+.hero-section .logo-big {
+  font-size: 80px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.hero-section h1 {
+  font-size: 56px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+}
+
+.hero-section .tagline {
+  font-size: 22px;
+  color: var(--text);
+  margin-bottom: 30px;
+  -webkit-text-fill-color: var(--text);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-buttons .btn-hero-primary {
+  padding: 14px 40px;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+}
+
+.hero-buttons .btn-hero-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.4);
+}
+
+.hero-buttons .btn-hero-secondary {
+  padding: 14px 40px;
+  background: transparent;
+  color: var(--text-h);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.hero-buttons .btn-hero-secondary:hover {
+  border-color: #7c3aed;
+  background: var(--accent-bg);
+}
+
+.features-section {
+  max-width: 1100px;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.features-section h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: var(--text-h);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: var(--bg);
+  padding: 30px 24px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+.feature-card .feature-icon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.feature-card h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: var(--text-h);
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.how-to-section {
+  max-width: 900px;
+  width: 100%;
+  background: var(--bg);
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+.how-to-section h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: var(--text-h);
+}
+
+.how-to-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.step {
+  text-align: center;
+  padding: 16px;
+}
+
+.step .step-number {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  color: white;
+  border-radius: 50%;
+  line-height: 40px;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.step h5 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: var(--text-h);
+}
+
+.step p {
+  font-size: 13px;
+  color: var(--text);
+}
+
+.roles-section {
+  max-width: 900px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.roles-section h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: var(--text-h);
+}
+
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.role-card {
+  background: var(--bg);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.role-card:hover {
+  transform: translateY(-3px);
+}
+
+.role-card .role-emoji {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.role-card h5 {
+  font-size: 15px;
+  margin-bottom: 4px;
+  color: var(--text-h);
+}
+
+.role-card p {
+  font-size: 12px;
+  color: var(--text);
+}
+
+.footer-section {
+  text-align: center;
+  padding: 20px;
+  color: var(--text);
+  font-size: 14px;
+  border-top: 1px solid var(--border);
+  width: 100%;
+  max-width: 1100px;
+}
+
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 32px;
+  }
+  .hero-section .tagline {
+    font-size: 18px;
+  }
+  .hero-buttons .btn-hero-primary,
+  .hero-buttons .btn-hero-secondary {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+  .how-to-section {
+    padding: 24px;
+  }
+}
