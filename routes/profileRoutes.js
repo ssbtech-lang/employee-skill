@@ -1,5 +1,5 @@
 const express = require("express");
-
+const router = express.Router();
 const {
   createProfile,
 } = require("../controllers/profileController");
@@ -8,12 +8,17 @@ const {
   protect,
 } = require("../middleware/authMiddleware");
 
-const router = express.Router();
+const {
+  getProfileByUserId,
+} = require("../controllers/profileController");
 
+
+router.get("/:userId", getProfileByUserId);
 router.post(
   "/",
   protect,
-  createProfile
+  createProfile,
+  getProfileByUserId,
 );
 
 module.exports = router;

@@ -3,7 +3,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 const connectDB = require("./config/db");
-
+//neww-----
+const resumeRoutes = require("./routes/resumeRoutes");
 dotenv.config();
 
 connectDB();
@@ -39,6 +40,8 @@ app.use(
   "/api/search", 
   require("./routes/searchRoutes")
 );
+//neww---
+app.use("/api/resume", resumeRoutes);
 
 const PORT =
   process.env.PORT || 5000;
