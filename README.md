@@ -1,269 +1,129 @@
-# Employee Skill Discovery Platform – Backend
+# Employee Skill Discovery Platform - Backend
 
-## Project Overview
+## Overview
 
-Employee Skill Discovery Platform is a backend system designed to centralize employee skill information and enable internal talent discovery.
+The Employee Skill Discovery Platform is a backend application that enables organizations to maintain a centralized repository of employee skills, profiles, and resume information. The platform helps discover employee expertise, supports skill-based search, and assists managers and HR teams in identifying suitable candidates for projects.
 
-The platform allows employees to maintain profiles and skills while enabling managers and organizational teams to discover talent using role-based search and filtering.
-
-Current implementation focuses on secure authentication, employee skill management, role-based access control, and employee search functionality.
+This backend is built using **Node.js**, **Express.js**, **MongoDB**, and integrates a **Python-based Resume Parser** for automatic skill extraction.
 
 ---
 
-# Tech Stack
+## Features
 
-## Backend
+### Authentication & Authorization
 
-* Node.js
-* Express.js
-
-## Database
-
-* MongoDB
-* Mongoose
-
-## Authentication & Security
-
-* JWT (JSON Web Token)
-* bcryptjs
-
-## Testing
-
-* Thunder Client
+- Employee Registration
+- Employee Login
+- JWT Authentication
+- Role-Based Access Control (RBAC)
+  - Employee
+  - Manager
+  - HR
+  - Learning & Development
 
 ---
 
-# Implemented Features
+### Employee Profile Management
 
-## Authentication
-
-* Register User
-* Login User
-* JWT Authentication
-* Protected Routes
-* Get Logged-in User
-
----
-
-## Role-Based Access Control (RBAC)
-
-Supported Roles:
-
-* Employee
-* Manager
-* HR
-* Learning & Development (L&D)
-
-Permissions:
-
-| Role     | Access                        |
-| -------- | ----------------------------- |
-| Employee | Manage own profile and skills |
-| Manager  | Search employees              |
-| HR       | Search employees              |
-| L&D      | Search employees              |
-
-Implemented:
-
-* JWT verification middleware
-* Role authorization middleware
-* Access restriction for protected APIs
+- Create Employee Profile
+- Update Employee Profile
+- View Employee Profile
+- Store:
+  - Department
+  - Designation
+  - Location
+  - Education
+  - Career Interests
 
 ---
 
-## Employee Profile
+### Skill Management
 
-Features:
-
-* Create Profile
-
-Profile Data:
-
-* Department
-* Designation
-* Location
-* Education
-* Career Interests
+- Add Skills
+- Update Skills
+- Delete Skills
+- View Employee Skills
+- Manual Skill Management
 
 ---
 
-## Skill Management
+### Resume Parser Integration
 
-Features:
-
-* Add Skill
-* View My Skills
-* Update Skill
-* Delete Skill
-
-Skill Fields:
-
-* Skill Name
-* Category
-* Proficiency Level
-* Years of Experience
-* Source
-* Endorsement Count
-
-Security:
-
-* Users can update only their own skills
-* Users can delete only their own skills
+- Upload Resume (PDF / DOCX)
+- Resume Parsing using Python
+- Automatic Skill Extraction
+- Resume Data Persistence
+- Duplicate Skill Prevention
+- Resume Metadata Storage
 
 ---
 
-## Employee Search
+### Employee Search
 
-Implemented Filters:
+- Search Employees by Skill
+- Search using Resume Skills
+- Search using Manually Added Skills
+- Ranking Based Search Results
 
-* Search by Skill
-* Filter by Minimum Experience
-* Filter by Proficiency Level
+Ranking Factors
 
-Supported Access:
-
-* Manager
-* HR
-* L&D
-
-Search Ranking:
-
-Match Score =
-Proficiency +
-Years of Experience +
-Endorsements +
-Skill Source
+- Skill Proficiency
+- Years of Experience
+- Skill Source
+- Endorsements
 
 ---
 
-# Current Architecture
+### File Validation
 
-Frontend (React)
+- Supports:
+  - PDF
+  - DOCX
 
-↓
-
-Backend APIs (Node.js + Express)
-
-↓
-
-MongoDB Database
-
-↓
-
-Future AI Resume Parsing Layer
+- File Size Validation
+- Invalid File Type Handling
+- Error Responses
 
 ---
 
-# API Endpoints
+## Technology Stack
 
-## Authentication APIs
+### Backend
 
-### Register User
+- Node.js
+- Express.js
 
-POST
+### Database
 
-```http
-/api/auth/register
-```
+- MongoDB
+- Mongoose
 
-### Login User
+### Authentication
 
-POST
+- JWT
+- bcryptjs
 
-```http
-/api/auth/login
-```
+### File Upload
 
-### Get Current User
+- Multer
 
-GET
+### Resume Parsing
 
-```http
-/api/auth/me
-```
-
----
-
-## Profile APIs
-
-### Create Profile
-
-POST
-
-```http
-/api/profile
-```
+- Python
+- pdfplumber
+- spaCy
+- python-docx
 
 ---
 
-## Skill APIs
+## Project Structure
 
-### Add Skill
-
-POST
-
-```http
-/api/skills
 ```
-
-### View My Skills
-
-GET
-
-```http
-/api/skills
-```
-
-### Update Skill
-
-PUT
-
-```http
-/api/skills/:id
-```
-
-### Delete Skill
-
-DELETE
-
-```http
-/api/skills/:id
-```
-
----
-
-## Search APIs
-
-### Search Employees
-
-GET
-
-```http
-/api/search/employees
-```
-
-Examples:
-
-```http
-/api/search/employees?skill=React
-```
-
-```http
-/api/search/employees?skill=React&minYears=2
-```
-
-```http
-/api/search/employees?skill=React&proficiencyLevel=advanced
-```
-
----
-
-# Project Structure
-
-```text
 backend
 │
 ├── config
+│   └── db.js
+│
 ├── controllers
 │   ├── authController.js
 │   ├── profileController.js
@@ -275,104 +135,237 @@ backend
 │
 ├── models
 │   ├── User.js
-│   ├── EmployeeProfile.js
-│   └── Skill.js
+│   ├── Skill.js
+│   └── EmployeeProfile.js
 │
 ├── routes
 │   ├── authRoutes.js
 │   ├── profileRoutes.js
 │   ├── skillRoutes.js
+│   ├── resumeRoutes.js
 │   └── searchRoutes.js
 │
+├── uploads
+│
+├── resumeparser.py
+├── aliases.json
+├── skills.json
 ├── server.js
 ├── package.json
-└── .env
+└── README.md
 ```
 
 ---
 
-# Setup Instructions
+## Installation
 
-## Clone Repository
+Clone the repository
 
 ```bash
-git clone REPOSITORY_LINK
+git clone <repository-url>
 ```
 
----
-
-## Move into Backend Folder
+Navigate to project
 
 ```bash
-cd backend
+cd employee-skill-discovery-backend
 ```
 
----
-
-## Install Dependencies
+Install Node dependencies
 
 ```bash
 npm install
 ```
 
----
+Install Python dependencies
 
-## Create Environment File
-
-Create:
-
-```text
-.env
+```bash
+pip install pdfplumber
+pip install python-docx
+pip install spacy
+python -m spacy download en_core_web_sm
 ```
 
-Add:
+---
+
+## Environment Variables
+
+Create a `.env` file.
+
+Example:
 
 ```env
 PORT=5000
-MONGO_URI=your_mongodb_connection
+
+MONGO_URI=your_mongodb_connection_string
+
 JWT_SECRET=your_secret_key
 ```
 
 ---
 
-## Run Backend
-
-Development:
+## Run the Backend
 
 ```bash
 npm run dev
 ```
 
-Production:
+Server runs on
 
-```bash
-npm start
 ```
-
-Server:
-
-```text
 http://localhost:5000
 ```
 
 ---
 
-# Current Status
+## Resume Parser
 
-Completed:
+Supported Formats
 
-* Authentication
-* RBAC
-* Employee Profile (Basic)
-* Skill CRUD
-* Ownership Validation
-* Employee Search
+- PDF
+- DOCX
 
-Planned:
+Upload Endpoint
 
-* Resume Upload
-* AI Resume Parsing
-* Analytics Dashboard
-* Learning Recommendations
-* Profile-Based Search
+```
+POST /api/resume/parse-resume
+```
 
+Returns
+
+- Employee Name
+- Email
+- Skills
+- Skill Source
+
+---
+
+## Resume Save API
+
+Endpoint
+
+```
+POST /api/resume/save-parsed-resume
+```
+
+Stores
+
+- Skills
+- Education
+- Certifications
+- Experience
+- Resume Status
+- Resume Filename
+
+Duplicate skills are automatically ignored.
+
+---
+
+## API Endpoints
+
+### Authentication
+
+```
+POST /api/auth/register
+
+POST /api/auth/login
+```
+
+---
+
+### Profile
+
+```
+POST /api/profile
+
+GET /api/profile/:userId
+
+PUT /api/profile/:userId
+```
+
+---
+
+### Skills
+
+```
+POST /api/skills
+
+GET /api/skills
+
+PUT /api/skills/:id
+
+DELETE /api/skills/:id
+```
+
+---
+
+### Resume
+
+```
+POST /api/resume/parse-resume
+
+POST /api/resume/save-parsed-resume
+```
+
+---
+
+### Search
+
+```
+GET /api/search?skill=React
+```
+
+---
+
+## Resume Search Ranking
+
+The employee ranking score is calculated using:
+
+```
+Match Score =
+Proficiency Score
++ Years of Experience
++ Endorsements
++ Resume Source Weight
+```
+
+Higher score → Better ranking.
+
+---
+
+## Error Handling
+
+The backend handles:
+
+- Invalid Login
+- Unauthorized Access
+- Missing Resume
+- Unsupported File Types
+- Large File Uploads
+- Parsing Errors
+- MongoDB Errors
+- Duplicate Skills
+
+---
+
+## Testing
+
+Backend APIs were tested using:
+
+- Postman
+
+Tested Scenarios
+
+- Authentication
+- Profile CRUD
+- Skill CRUD
+- Resume Upload
+- Resume Parsing
+- MongoDB Persistence
+- Employee Search
+- Ranking
+- Duplicate Prevention
+
+
+
+This project is developed for educational and academic purposes.
