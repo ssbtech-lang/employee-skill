@@ -1,3 +1,6 @@
+const dns=require('node:dns');
+dns.setServers(['1.1.1.1','8.8.8.8']);
+
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -15,10 +18,24 @@ app.use(cors());
 
 app.use(express.json());
 
+// app.get("/", (req, res) => {
+//   res.send(
+//     "Employee Skill Discovery Backend is running"
+//   );
+// });
+
 app.get("/", (req, res) => {
-  res.send(
-    "Employee Skill Discovery Backend is running"
-  );
+  res.status(200).json({
+    success: true,
+    message: "Employee Skill Discovery Platform API is running"
+  });
+});
+
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    status: "healthy"
+  });
 });
 
 app.use(
