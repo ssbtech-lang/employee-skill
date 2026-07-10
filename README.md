@@ -269,6 +269,8 @@ Duplicate skills are automatically ignored.
 POST /api/auth/register
 
 POST /api/auth/login
+
+GET /api/auth/me
 ```
 
 ---
@@ -280,7 +282,9 @@ POST /api/profile
 
 GET /api/profile/:userId
 
-PUT /api/profile/:userId
+GET /api/profile/me
+
+PUT /api/profile/me
 ```
 
 ---
@@ -312,7 +316,7 @@ POST /api/resume/save-parsed-resume
 ### Search
 
 ```
-GET /api/search?skill=React
+GET /api/skills/search?skill=React
 ```
 
 ---
