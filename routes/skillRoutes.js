@@ -18,7 +18,8 @@ router.post("/", protect, addSkill);
 
 router.get("/", protect, getMySkills);
 
-router.get("/search", searchEmployees);
+router.get("/search", protect, searchEmployees);
+// router.get("/search", protect, searchSkills);
 
 router.put("/:id", protect, updateSkill);
 
