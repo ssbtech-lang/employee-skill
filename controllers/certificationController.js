@@ -15,7 +15,7 @@ const normalizeCertificationInput = (body) => {
     "doesNotExpire",
     "credentialId",
     "credentialUrl",
-    "skillsCovered",
+    "skills",
   ];
 
   const data = {};

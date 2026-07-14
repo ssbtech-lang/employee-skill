@@ -214,43 +214,52 @@ backend
 │   └── db.js
 │
 ├── controllers
+│   ├── analyticsController.js
 │   ├── authController.js
-│   ├── profileController.js
-│   ├── skillController.js
 │   ├── certificationController.js
+│   ├── profileController.js
 │   ├── resumeController.js
-│   └── searchController.js
+│   ├── searchController.js
+│   ├── skillCatalogController.js
+│   └── skillController.js
 │
 ├── middleware
 │   └── authMiddleware.js
 │
 ├── models
-│   ├── User.js
+│   ├── Certification.js
 │   ├── EmployeeProfile.js
 │   ├── Skill.js
-│   └── Certification.js
+│   ├── SkillCatalog.js
+│   └── User.js
 │
 ├── routes
+│   ├── analyticsRoutes.js
 │   ├── authRoutes.js
-│   ├── profileRoutes.js
-│   ├── skillRoutes.js
 │   ├── certificationRoutes.js
+│   ├── profileRoutes.js
 │   ├── resumeRoutes.js
-│   └── searchRoutes.js
+│   ├── searchRoutes.js
+│   ├── skillCatalogRoutes.js
+│   └── skillRoutes.js
 │
 ├── utils
+│   ├── certificationValidation.js
+│   ├── skillNormalization.js
 │   └── searchUtils.js
 │
-├── uploads
+├── uploads/
 │
-├── resumeparser.py
 ├── aliases.json
 ├── skills.json
+├── resumeparser.py
 ├── server.js
 ├── package.json
+├── package-lock.json
+├── .env
+├── .gitignore
 └── README.md
 ```
-
 ---
 
 # Installation
@@ -479,6 +488,48 @@ POST /api/resume/parse-resume
 
 ```
 POST /api/resume/save-parsed-resume
+```
+
+---
+
+## Analytics
+
+### Summary
+
+```
+GET /api/analytics/summary
+```
+
+### Top Skills 
+
+```
+GET /api/analytics/top-skills
+```
+
+### Department 
+
+```
+GET /api/analytics/departments
+```
+
+### Certifications
+
+```
+GET /api/analytics/certifications
+```
+
+### Resume
+
+```
+GET /api/analytics/resume-stats
+```
+
+---
+
+## Skill Catalog
+
+```
+GET /api/skill-catalog
 ```
 
 ---

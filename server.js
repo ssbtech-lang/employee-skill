@@ -12,6 +12,9 @@ const certificationRoutes = require("./routes/certificationRoutes");
 const analyticsRoutes = require(
   "./routes/analyticsRoutes"
 );
+const skillCatalogRoutes = require("./routes/skillCatalogRoutes");
+console.log("analyticsRoutes:", analyticsRoutes);
+console.log("skillCatalogRoutes:", skillCatalogRoutes);
 dotenv.config();
 
 connectDB();
@@ -67,6 +70,10 @@ app.use("/api/certifications", certificationRoutes);
 app.use(
   "/api/analytics",
   analyticsRoutes
+);
+app.use(
+  "/api/skill-catalog",
+  skillCatalogRoutes
 );
 
 const PORT =
