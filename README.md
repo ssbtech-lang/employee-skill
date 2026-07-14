@@ -488,13 +488,13 @@ POST /api/resume/save-parsed-resume
 ### Basic Search
 
 ```
-GET /api/search?skill=React
+GET /api/skills/search?skill=React
 ```
 
 Example
 
 ```
-GET /api/search?skill=React
+GET /api/skills/search?skill=React
 ```
 
 ---
