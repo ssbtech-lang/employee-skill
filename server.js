@@ -8,6 +8,10 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 //neww-----
 const resumeRoutes = require("./routes/resumeRoutes");
+const certificationRoutes = require("./routes/certificationRoutes");
+const analyticsRoutes = require(
+  "./routes/analyticsRoutes"
+);
 dotenv.config();
 
 connectDB();
@@ -59,6 +63,11 @@ app.use(
 );
 //neww---
 app.use("/api/resume", resumeRoutes);
+app.use("/api/certifications", certificationRoutes);
+app.use(
+  "/api/analytics",
+  analyticsRoutes
+);
 
 const PORT =
   process.env.PORT || 5000;
