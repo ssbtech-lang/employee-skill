@@ -15,6 +15,7 @@ const normalizeCertificationInput = (body) => {
     "doesNotExpire",
     "credentialId",
     "credentialUrl",
+    "verificationStatus",
     "skills",
   ];
 
@@ -97,12 +98,18 @@ const createCertification = async (req, res) => {
       });
     }
 
-    console.error("Create certification error:", error);
+    console.error(error);
 
     return res.status(500).json({
-      success: false,
-      message: "Unable to create certification",
+        success:false,
+        message:error.message
     });
+    // console.error("Create certification error:", error);
+
+    // return res.status(500).json({
+    //   success: false,
+    //   message: "Unable to create certification",
+    // });
   }
 };
 
@@ -274,6 +281,10 @@ const updateCertification = async (req, res) => {
         updateData.doesNotExpire !== undefined
           ? updateData.doesNotExpire
           : certification.doesNotExpire,
+      credentialId:
+        updateData.credentialId !== undefined
+          ? updateData.credentialId
+          : certification.credentialId,
       credentialUrl:
         updateData.credentialUrl !== undefined
           ? updateData.credentialUrl

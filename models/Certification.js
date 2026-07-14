@@ -119,7 +119,7 @@ certificationSchema.pre("save", function normalizeSkills() {
   if (Array.isArray(this.skills)) {
     this.skills = [
       ...new Set(
-        data.skills
+        this.skills
           .filter((skill) => typeof skill === "string")
           .map((skill) => skill.trim())
           .filter(Boolean)
