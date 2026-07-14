@@ -1,0 +1,350 @@
+{
+  "Frontend Developer": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Redux",
+    "Bootstrap",
+    "Tailwind CSS",
+    "REST API",
+    "GraphQL",
+    "Webpack",
+    "Vite",
+    "Responsive Design",
+    "Git",
+    "Jest"
+  ],
+
+  "Backend Developer": [
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "MySQL",
+    "PostgreSQL",
+    "REST API",
+    "GraphQL",  
+    "Docker",
+    "AWS",
+    "Redis",
+    "Microservices",
+    "System Design",
+    "Linux",
+    "CI/CD",
+    "Git"
+  ],
+
+  "Full Stack Developer": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Redux",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "MySQL",
+    "REST API",
+    "Docker",
+    "AWS",
+    "Git",
+    "CI/CD"
+  ],
+
+  "Data Scientist": [
+    "Python",
+    "Machine Learning",
+    "Deep Learning",
+    "Pandas",
+    "NumPy",
+    "Scikit-learn",
+    "TensorFlow",
+    "PyTorch",
+    "Statistics",
+    "Probability",
+    "Feature Engineering",
+    "Data Visualization",
+    "Big Data",
+    "SQL",
+    "ETL"
+  ],
+
+  "Machine Learning Engineer": [
+    "Python",
+    "Machine Learning",
+    "Deep Learning",
+    "TensorFlow",
+    "PyTorch",
+    "Keras",
+    "Scikit-learn",
+    "Transformers",
+    "MLOps",
+    "Model Deployment",
+    "Docker",
+    "Kubernetes",
+    "AWS",
+    "CI/CD"
+  ],
+
+  "DevOps Engineer": [
+    "Docker",
+    "Kubernetes",
+    "Terraform",
+    "Jenkins",
+    "GitHub Actions",
+    "CI/CD",
+    "Linux",
+    "Bash",
+    "AWS",
+    "Azure",
+    "Prometheus",
+    "Grafana",
+    "Monitoring",
+    "Nginx",
+    "Cloudflare"
+  ],
+
+  "Cloud Engineer": [
+    "AWS",
+    "Azure",
+    "Google Cloud Platform",
+    "Docker",
+    "Kubernetes",
+    "EC2",
+    "S3",
+    "Lambda",
+    "Cloud Run",
+    "Terraform",
+    "Linux",
+    "Networking",
+    "Security",
+    "Monitoring"
+  ],
+
+  "QA Engineer": [
+    "Selenium",
+    "Cypress",
+    "Playwright",
+    "JUnit",
+    "PyTest",
+    "API Testing",
+    "Automation Testing",
+    "Load Testing",
+    "Performance Testing",
+    "Manual Testing",
+    "Jest",
+    "Postman"
+  ],
+
+  "Cybersecurity Engineer": [
+    "Ethical Hacking",
+    "Penetration Testing",
+    "Network Security",
+    "Cryptography",
+    "OWASP",
+    "SIEM",
+    "SOC",
+    "Wireshark",
+    "Metasploit",
+    "Kali Linux",
+    "IAM",
+    "Threat Analysis",
+    "Zero Trust"
+  ],
+
+  "Software Engineer": [
+    "Java",
+    "Python",
+    "C++",
+    "Data Structures",
+    "Algorithms",
+    "Object-Oriented Programming",
+    "Design Patterns",
+    "System Design",
+    "Microservices",
+    "Distributed Systems",
+    "Git",
+    "Linux",
+    "Testing"
+  ],
+
+  "Business Analyst": [
+    "Excel",
+    "Power BI",
+    "Tableau",
+    "Data Analysis",
+    "Business Analysis",
+    "Requirement Gathering",
+    "Communication",
+    "Stakeholder Management",
+    "Documentation",
+    "Reporting"
+  ],
+
+  "AI Engineer": [
+    "Python",
+    "Machine Learning",
+    "Deep Learning",
+    "TensorFlow",
+    "PyTorch",
+    "Transformers",
+    "BERT",
+    "LLM",
+    "NLP",
+    "Computer Vision",
+    "MLOps",
+    "Docker",
+    "Kubernetes",
+    "AWS"
+  ] ,
+  "Mobile Developer": [
+  "Flutter",
+  "React Native",
+  "Android Development",
+  "iOS Development",
+  "Firebase",
+  "SQLite",
+  "REST API",
+  "Git",
+  "UI Design",
+  "Push Notifications"
+],
+
+"Data Engineer": [
+  "Python",
+  "SQL",
+  "Apache Spark",
+  "Hadoop",
+  "Kafka",
+  "Airflow",
+  "ETL",
+  "Data Warehousing",
+  "AWS",
+  "BigQuery",
+  "Redshift"
+],
+
+"Blockchain Developer": [
+  "Solidity",
+  "Ethereum",
+  "Smart Contracts",
+  "Web3.js",
+  "Hyperledger",
+  "Cryptography",
+  "DeFi",
+  "NFT Development"
+],
+
+"System Administrator": [
+  "Linux",
+  "Bash",
+  "Nginx",
+  "Apache",
+  "Cloudflare",
+  "Monitoring",
+  "Server Management",
+  "Networking",
+  "Security"
+],
+
+"Network Engineer": [
+  "TCP/IP",
+  "DNS",
+  "DHCP",
+  "VPN",
+  "Routing",
+  "Switching",
+  "Load Balancing",
+  "Firewalls",
+  "Network Security"
+],
+
+"UI/UX Designer": [
+  "Figma",
+  "Adobe XD",
+  "Wireframing",
+  "Prototyping",
+  "UI Design",
+  "UX Research",
+  "Responsive Design",
+  "Accessibility"
+],
+
+"Project Manager": [
+  "JIRA",
+  "Scrum",
+  "Kanban",
+  "Stakeholder Management",
+  "Risk Management",
+  "Requirement Gathering",
+  "Planning",
+  "Documentation",
+  "Communication"
+],
+
+"Salesforce Developer": [
+  "Salesforce",
+  "Apex",
+  "SOQL",
+  "Lightning Web Components",
+  "JavaScript",
+  "REST API",
+  "Triggers",
+  "Visualforce"
+],
+
+"ERP Consultant": [
+  "SAP",
+  "Salesforce",
+  "ServiceNow",
+  "Zoho CRM",
+  "Business Analysis",
+  "Requirement Gathering",
+  "Process Mapping"
+],
+
+"Embedded Systems Engineer": [
+  "C",
+  "C++",
+  "Embedded C",
+  "Microcontrollers",
+  "RTOS",
+  "IoT",
+  "Arduino",
+  "Hardware Debugging"
+],
+
+"Game Developer": [
+  "C#",
+  "C++",
+  "Unity",
+  "Unreal Engine",
+  "Game Design",
+  "3D Graphics",
+  "Physics Engine",
+  "Animation Systems"
+],
+
+"AR/VR Developer": [
+  "Unity",
+  "C#",
+  "ARCore",
+  "ARKit",
+  "3D Modeling",
+  "Computer Vision",
+  "Virtual Reality",
+  "Augmented Reality"
+],
+
+"Technical Support Engineer": [
+  "Troubleshooting",
+  "Linux",
+  "Windows",
+  "Networking",
+  "Customer Support",
+  "Issue Tracking",
+  "Documentation"
+]
+}
