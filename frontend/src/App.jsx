@@ -6,7 +6,10 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
 import Skills from "./pages/Skills/Skills";
 import Search from "./pages/Search/Search";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute/ProtectedRoute";
+import Resume from "./pages/Resume/Resume";
+import ProtectedRoute from "/src/components/ProtectedRoute/ProtectedRoute/ProtectedRoute.jsx";
+
+
 
 function App() {
   return (
@@ -49,6 +52,15 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/resume"
+        element={
+          <ProtectedRoute>
+            <Resume />
+          </ProtectedRoute>
+        }
+      />
+
       <Route path="*" element={<h2 style={{textAlign:"center", marginTop:"50px"}}>404 Page Not Found</h2>} />
     </Routes>
   );

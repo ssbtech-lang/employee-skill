@@ -75,6 +75,11 @@ function Dashboard() {
           <h3>Search Employees</h3>
           <p>Discover talent by skill</p>
         </div>
+        <div className="card-box" onClick={() => navigate("/resume")}>
+          <span className="icon">📄</span>
+          <h3>Resume Parser</h3>
+          <p>Upload and parse resumes</p>
+        </div>
       </div>
     </div>
   );

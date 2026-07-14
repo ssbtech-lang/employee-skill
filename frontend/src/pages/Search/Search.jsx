@@ -1,8 +1,10 @@
 import { useState } from "react";
 import API from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 import "./Search.css";
 
 function Search() {
+  const { user } = useAuth();
   const [filter, setFilter] = useState({
     skill: "",
     minYears: "",
@@ -11,18 +13,29 @@ function Search() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFilter({
       ...filter,
       [e.target.name]: e.target.value
     });
+    setError("");
   };
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    
+    // Check if user has permission
+    const allowedRoles = ["manager", "hr", "ld"];
+    if (!allowedRoles.includes(user?.role)) {
+      setError("❌ Access denied. Only Managers, HR, and L&D can search for employees.");
+      return;
+    }
+
     setLoading(true);
     setSearched(true);
+    setError("");
 
     try {
       const params = {};
@@ -31,9 +44,13 @@ function Search() {
       if (filter.proficiencyLevel) params.proficiencyLevel = filter.proficiencyLevel;
 
       const res = await API.get("/search/employees", { params });
-      setResults(res.data.results || res.data || []);
+      setResults(res.data.results || []);
     } catch (err) {
-      alert(err.response?.data?.message || "Search failed. Make sure you have the right role.");
+      if (err.response?.status === 403) {
+        setError("❌ Access denied. You need Manager, HR, or L&D role to search.");
+      } else {
+        setError(err.response?.data?.message || "Search failed");
+      }
       setResults([]);
     } finally {
       setLoading(false);
@@ -44,6 +61,32 @@ function Search() {
     <div className="search-page">
       <h2>🔍 Search Employees</h2>
       <p className="subtitle">Find talent by skill, experience, and proficiency</p>
+
+      {user?.role && !["manager", "hr", "ld"].includes(user.role) && (
+        <div className="alert alert-warning" style={{ 
+          borderRadius: "12px", 
+          padding: "15px",
+          background: "#fef3c7",
+          border: "1px solid #f59e0b",
+          color: "#78350f",
+          marginBottom: "20px"
+        }}>
+          ⚠️ You are logged in as <strong>{user.role}</strong>. Only <strong>Managers, HR, and L&D</strong> can search for employees.
+        </div>
+      )}
+
+      {error && (
+        <div className="alert alert-danger" style={{ 
+          borderRadius: "12px",
+          padding: "15px",
+          background: "#fee2e2",
+          border: "1px solid #ef4444",
+          color: "#991b1b",
+          marginBottom: "20px"
+        }}>
+          {error}
+        </div>
+      )}
 
       <form className="search-form" onSubmit={handleSearch}>
         <input
@@ -69,12 +112,12 @@ function Search() {
           <option value="advanced">🟢 Advanced</option>
           <option value="expert">🟣 Expert</option>
         </select>
-        <button type="submit" className="btn-search" disabled={loading}>
+        <button type="submit" className="btn-search" disabled={loading || !["manager", "hr", "ld"].includes(user?.role)}>
           {loading ? "Searching..." : "🔎 Search"}
         </button>
       </form>
 
-      {searched && results.length === 0 && !loading && (
+      {searched && results.length === 0 && !loading && !error && (
         <div className="no-results">
           <span className="icon">🔍</span>
           <h3>No employees found</h3>
@@ -86,13 +129,13 @@ function Search() {
         <div className="results-grid">
           {results.map((item, index) => (
             <div className="employee-card" key={index}>
-              <h3>👤 {item.employee?.name || item.user?.name || "Employee"}</h3>
+              <h3>👤 {item.employee?.name || "Employee"}</h3>
               <p style={{ color: "var(--text)", fontSize: "14px" }}>
-                {item.employee?.email || item.user?.email || ""}
+                {item.employee?.email || ""}
               </p>
               <div className="info-row">
                 <span>🏢 Role</span>
-                <span><strong>{item.employee?.role || item.user?.role || "-"}</strong></span>
+                <span><strong>{item.employee?.role || "-"}</strong></span>
               </div>
               <div className="info-row">
                 <span>🏛️ Department</span>
