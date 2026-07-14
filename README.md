@@ -2,121 +2,210 @@
 
 ## Overview
 
-The Employee Skill Discovery Platform is a backend application that enables organizations to maintain a centralized repository of employee skills, profiles, and resume information. The platform helps discover employee expertise, supports skill-based search, and assists managers and HR teams in identifying suitable candidates for projects.
+The **Employee Skill Discovery Platform** is a backend application that enables organizations to maintain a centralized repository of employee skills, certifications, profiles, and resume information. The platform helps discover employee expertise, supports advanced skill-based search, and assists Managers, HR, and Learning & Development teams in identifying suitable candidates for projects.
 
-This backend is built using **Node.js**, **Express.js**, **MongoDB**, and integrates a **Python-based Resume Parser** for automatic skill extraction.
+The backend is built using **Node.js**, **Express.js**, **MongoDB**, and integrates a **Python-based Resume Parser** for automatic skill extraction.
 
 ---
 
-## Features
+# Features
 
-### Authentication & Authorization
+## Authentication & Authorization
 
 - Employee Registration
 - Employee Login
 - JWT Authentication
+- Protected Routes
 - Role-Based Access Control (RBAC)
-  - Employee
-  - Manager
-  - HR
-  - Learning & Development
+
+Supported Roles
+
+- Employee
+- Manager
+- HR
+- Learning & Development (L&D)
 
 ---
 
-### Employee Profile Management
+## Employee Profile Management
 
 - Create Employee Profile
-- Update Employee Profile
 - View Employee Profile
-- Store:
-  - Department
-  - Designation
-  - Location
-  - Education
-  - Career Interests
+- Update Employee Profile
+
+Stores
+
+- Department
+- Designation
+- Location
+- Career Interests
+- Education
+- Experience
+- Resume Metadata
 
 ---
 
-### Skill Management
+## Skill Management
 
 - Add Skills
 - Update Skills
 - Delete Skills
 - View Employee Skills
-- Manual Skill Management
+
+Each skill stores
+
+- Skill Name
+- Category
+- Proficiency Level
+- Years of Experience
+- Skill Source
+- Endorsement Count
 
 ---
 
-### Resume Parser Integration
+## Certification Management
 
-- Upload Resume (PDF / DOCX)
+Employees can manage professional certifications.
+
+Features
+
+- Add Certification
+- View Certifications
+- Update Certification
+- Delete Certification
+
+Stores
+
+- Certification Name
+- Issuing Organization
+- Issue Date
+- Expiry Date
+- Credential ID
+- Credential URL
+- Verification Status
+- Related Skills
+- Source
+
+---
+
+## Resume Parser Integration
+
+Supports
+
+- PDF
+- DOCX
+
+Features
+
+- Resume Upload
 - Resume Parsing using Python
 - Automatic Skill Extraction
 - Resume Data Persistence
 - Duplicate Skill Prevention
 - Resume Metadata Storage
 
----
+Extracts
 
-### Employee Search
-
-- Search Employees by Skill
-- Search using Resume Skills
-- Search using Manually Added Skills
-- Ranking Based Search Results
-
-Ranking Factors
-
-- Skill Proficiency
-- Years of Experience
-- Skill Source
-- Endorsements
+- Name
+- Email
+- Skills
+- Education
+- Certifications
+- Experience
 
 ---
 
-### File Validation
+## Employee Search
 
-- Supports:
-  - PDF
-  - DOCX
+### Basic Search
 
-- File Size Validation
-- Invalid File Type Handling
-- Error Responses
+Search employees using a single skill.
+
+Features
+
+- Skill Search
+- Resume Skills
+- Manual Skills
+- Ranked Results
 
 ---
 
-## Technology Stack
+### Advanced Search
 
-### Backend
+Supports multiple filters.
+
+Available Filters
+
+- Skills
+- Department
+- Designation
+- Location
+- Education
+- Certification
+- Minimum Experience
+- Maximum Experience
+- Minimum Proficiency
+
+Supports
+
+- Multi-skill Search
+- Match Any
+- Match All
+- Pagination
+- Ranked Results
+
+---
+
+## Employee Ranking
+
+Search results are ranked using
+
+```
+Match Score
+
+=
+
+Skill Proficiency Score
++ Years of Experience
++ Endorsements
++ Resume Source Weight
+```
+
+Higher score indicates better employee suitability.
+
+---
+
+# Technology Stack
+
+## Backend
 
 - Node.js
 - Express.js
 
-### Database
+## Database
 
 - MongoDB
 - Mongoose
 
-### Authentication
+## Authentication
 
 - JWT
 - bcryptjs
 
-### File Upload
+## File Upload
 
 - Multer
 
-### Resume Parsing
+## Resume Parsing
 
 - Python
-- pdfplumber
 - spaCy
+- pdfplumber
 - python-docx
 
 ---
 
-## Project Structure
+# Project Structure
 
 ```
 backend
@@ -128,6 +217,8 @@ backend
 │   ├── authController.js
 │   ├── profileController.js
 │   ├── skillController.js
+│   ├── certificationController.js
+│   ├── resumeController.js
 │   └── searchController.js
 │
 ├── middleware
@@ -135,15 +226,20 @@ backend
 │
 ├── models
 │   ├── User.js
+│   ├── EmployeeProfile.js
 │   ├── Skill.js
-│   └── EmployeeProfile.js
+│   └── Certification.js
 │
 ├── routes
 │   ├── authRoutes.js
 │   ├── profileRoutes.js
 │   ├── skillRoutes.js
+│   ├── certificationRoutes.js
 │   ├── resumeRoutes.js
 │   └── searchRoutes.js
+│
+├── utils
+│   └── searchUtils.js
 │
 ├── uploads
 │
@@ -157,7 +253,7 @@ backend
 
 ---
 
-## Installation
+# Installation
 
 Clone the repository
 
@@ -165,13 +261,13 @@ Clone the repository
 git clone <repository-url>
 ```
 
-Navigate to project
+Navigate into the project
 
 ```bash
 cd employee-skill-discovery-backend
 ```
 
-Install Node dependencies
+Install Node.js dependencies
 
 ```bash
 npm install
@@ -188,11 +284,11 @@ python -m spacy download en_core_web_sm
 
 ---
 
-## Environment Variables
+# Environment Variables
 
 Create a `.env` file.
 
-Example:
+Example
 
 ```env
 PORT=5000
@@ -204,13 +300,13 @@ JWT_SECRET=your_secret_key
 
 ---
 
-## Run the Backend
+# Running the Backend
 
 ```bash
 npm run dev
 ```
 
-Server runs on
+Server
 
 ```
 http://localhost:5000
@@ -218,14 +314,14 @@ http://localhost:5000
 
 ---
 
-## Resume Parser
+# Resume Parser
 
-Supported Formats
+## Supported Formats
 
 - PDF
 - DOCX
 
-Upload Endpoint
+## Parse Resume
 
 ```
 POST /api/resume/parse-resume
@@ -236,13 +332,13 @@ Returns
 - Employee Name
 - Email
 - Skills
-- Skill Source
+- Education
+- Experience
+- Certifications
 
 ---
 
-## Resume Save API
-
-Endpoint
+## Save Parsed Resume
 
 ```
 POST /api/resume/save-parsed-resume
@@ -261,115 +357,259 @@ Duplicate skills are automatically ignored.
 
 ---
 
-## API Endpoints
+# API Endpoints
 
-### Authentication
+---
+
+## Authentication
+
+### Register
 
 ```
 POST /api/auth/register
+```
 
+### Login
+
+```
 POST /api/auth/login
+```
 
+### Get Logged-in User
+
+```
 GET /api/auth/me
 ```
 
 ---
 
-### Profile
+## Profile
+
+### Create Profile
 
 ```
 POST /api/profile
+```
 
-GET /api/profile/:userId
+### Get My Profile
 
+```
 GET /api/profile/me
+```
 
+### Get Profile by User ID
+
+```
+GET /api/profile/:userId
+```
+
+### Update My Profile
+
+```
 PUT /api/profile/me
 ```
 
 ---
 
-### Skills
+## Skills
+
+### Add Skill
 
 ```
 POST /api/skills
+```
 
+### Get Skills
+
+```
 GET /api/skills
+```
 
+### Update Skill
+
+```
 PUT /api/skills/:id
+```
 
+### Delete Skill
+
+```
 DELETE /api/skills/:id
 ```
 
 ---
 
-### Resume
+## Certifications
+
+### Add Certification
+
+```
+POST /api/certifications
+```
+
+### Get Certifications
+
+```
+GET /api/certifications
+```
+
+### Update Certification
+
+```
+PUT /api/certifications/:id
+```
+
+### Delete Certification
+
+```
+DELETE /api/certifications/:id
+```
+
+---
+
+## Resume
+
+### Parse Resume
 
 ```
 POST /api/resume/parse-resume
+```
 
+### Save Parsed Resume
+
+```
 POST /api/resume/save-parsed-resume
 ```
 
 ---
 
-### Search
+## Search
+
+### Basic Search
 
 ```
-GET /api/skills/search?skill=React
+GET /api/search?skill=React
+```
+
+Example
+
+```
+GET /api/search?skill=React
 ```
 
 ---
 
-## Resume Search Ranking
-
-The employee ranking score is calculated using:
+### Advanced Search
 
 ```
-Match Score =
+GET /api/search/advanced
+```
+
+Example
+
+```
+GET /api/search/advanced?skills=React,Node.js&matchMode=all&department=Engineering&minExperience=2&minProficiency=intermediate&page=1&limit=10
+```
+
+Supported Parameters
+
+| Parameter | Description |
+|------------|-------------|
+| skills | Comma-separated skills |
+| matchMode | any / all |
+| department | Filter by department |
+| designation | Filter by designation |
+| location | Filter by location |
+| education | Filter by education |
+| certification | Filter by certification |
+| minExperience | Minimum experience |
+| maxExperience | Maximum experience |
+| minProficiency | beginner/intermediate/advanced/expert |
+| page | Page number |
+| limit | Number of records per page |
+
+---
+
+# Ranking Logic
+
+Employees are ranked using
+
+```
+Match Score
+
+=
+
 Proficiency Score
 + Years of Experience
 + Endorsements
-+ Resume Source Weight
++ Resume Source Bonus
 ```
 
-Higher score → Better ranking.
+Proficiency Mapping
+
+| Level | Score |
+|---------|------|
+| Beginner | 1 |
+| Intermediate | 2 |
+| Advanced | 3 |
+| Expert | 4 |
+
+Resume Parsed Skills receive an additional ranking bonus.
 
 ---
 
-## Error Handling
+# Error Handling
 
-The backend handles:
+The backend handles
 
 - Invalid Login
 - Unauthorized Access
+- Forbidden Access
+- Invalid JWT
 - Missing Resume
 - Unsupported File Types
 - Large File Uploads
 - Parsing Errors
 - MongoDB Errors
 - Duplicate Skills
+- Validation Errors
 
 ---
 
-## Testing
+# Testing
 
-Backend APIs were tested using:
+Backend APIs were tested using
 
+- Thunder Client
 - Postman
 
-Tested Scenarios
+Tested Modules
 
 - Authentication
+- Authorization
 - Profile CRUD
 - Skill CRUD
+- Certification CRUD
 - Resume Upload
 - Resume Parsing
-- MongoDB Persistence
-- Employee Search
-- Ranking
+- Resume Persistence
+- Basic Search
+- Advanced Search
+- Search Ranking
+- Pagination
 - Duplicate Prevention
 
+---
+
+# Deployment
+
+Backend
+
+- Render
+
+Database
+
+- MongoDB Atlas
 
 
-This project is developed for educational and academic purposes.
+
