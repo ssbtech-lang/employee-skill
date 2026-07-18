@@ -1,82 +1,153 @@
+const mongoose = require("mongoose");
 const EmployeeProfile = require("../models/EmployeeProfile");
 
-// Create or Update Profile
+// Create logged-in user's profile
 const createProfile = async (req, res) => {
   try {
-    const { department, designation, location, careerInterests, education } = req.body;
-    
-    // Convert string to array if needed
-    const careerInterestsArray = typeof careerInterests === 'string' 
-      ? careerInterests.split(',').map(s => s.trim()).filter(Boolean)
-      : careerInterests || [];
-      
-    const educationArray = typeof education === 'string'
-      ? education.split(',').map(s => s.trim()).filter(Boolean)
-      : education || [];
+    const existingProfile = await EmployeeProfile.findOne({
+      userId: req.user._id,
+    });
 
-    let profile = await EmployeeProfile.findOne({ userId: req.user._id });
-
-    if (profile) {
-      // Update existing profile
-      profile.department = department;
-      profile.designation = designation;
-      profile.location = location;
-      profile.careerInterests = careerInterestsArray;
-      profile.education = educationArray;
-      await profile.save();
-      
-      return res.status(200).json({
-        message: "Profile updated successfully",
-        profile
+    if (existingProfile) {
+      return res.status(400).json({
+        success: false,
+        message: "Profile already exists",
       });
     }
 
-    // Create new profile
-    profile = await EmployeeProfile.create({
+    const profile = await EmployeeProfile.create({
       userId: req.user._id,
-      department,
-      designation,
-      location,
-      careerInterests: careerInterestsArray,
-      education: educationArray,
+      ...req.body,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
+      success: true,
       message: "Profile created successfully",
       profile,
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
+    console.error("Create profile error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to create profile",
+      error: error.message,
     });
   }
 };
 
-// Get Profile
-const getProfile = async (req, res) => {
+// Get logged-in user's profile
+const getMyProfile = async (req, res) => {
   try {
-    const profile = await EmployeeProfile.findOne({ userId: req.user._id });
-    
+    const profile = await EmployeeProfile.findOne({
+      userId: req.user._id,
+    }).populate("userId", "name email role");
+
     if (!profile) {
       return res.status(404).json({
-        message: "Profile not found"
+        success: false,
+        message: "Profile not found",
       });
     }
-    
-    // Convert arrays to strings for frontend display
-    const profileData = profile.toObject();
-    profileData.careerInterests = profileData.careerInterests?.join(', ') || '';
-    profileData.education = profileData.education?.join(', ') || '';
-    
-    res.status(200).json(profileData);
+
+    return res.status(200).json({
+      success: true,
+      profile,
+    });
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
+    console.error("Get my profile error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch profile",
+      error: error.message,
+    });
+  }
+};
+
+// Update logged-in user's profile
+const updateMyProfile = async (req, res) => {
+  try {
+    // Do not allow userId to be changed through request body
+    const { userId, ...allowedUpdates } = req.body;
+
+    const profile = await EmployeeProfile.findOneAndUpdate(
+      {
+        userId: req.user._id,
+      },
+      {
+        $set: allowedUpdates,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!profile) {
+      return res.status(404).json({
+        success: false,
+        message: "Profile not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      profile,
+    });
+  } catch (error) {
+    console.error("Update profile error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update profile",
+      error: error.message,
+    });
+  }
+};
+
+// Get another user's profile using userId
+const getProfileByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid user ID",
+      });
+    }
+
+    const profile = await EmployeeProfile.findOne({
+      userId,
+    }).populate("userId", "name email role");
+
+    if (!profile) {
+      return res.status(404).json({
+        success: false,
+        message: "Profile not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      profile,
+    });
+  } catch (error) {
+    console.error("Get profile error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch profile",
+      error: error.message,
     });
   }
 };
 
 module.exports = {
   createProfile,
-  getProfile,
+  getMyProfile,
+  updateMyProfile,
+  getProfileByUserId,
 };

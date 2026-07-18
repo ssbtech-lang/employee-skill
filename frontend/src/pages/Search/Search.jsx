@@ -5,11 +5,20 @@ import "./Search.css";
 
 function Search() {
   const { user } = useAuth();
+
   const [filter, setFilter] = useState({
-    skill: "",
-    minYears: "",
-    proficiencyLevel: ""
+    skills: "",
+    department: "",
+    designation: "",
+    location: "",
+    education: "",
+    certification: "",
+    minExperience: "",
+    maxExperience: "",
+    minProficiency: "",
+    matchMode: "any",
   });
+
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
@@ -18,18 +27,20 @@ function Search() {
   const handleChange = (e) => {
     setFilter({
       ...filter,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
     setError("");
   };
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    
-    // Check if user has permission
-    const allowedRoles = ["manager", "hr", "ld"];
+
+    const allowedRoles = ["manager", "hr"];
+
     if (!allowedRoles.includes(user?.role)) {
-      setError("❌ Access denied. Only Managers, HR, and L&D can search for employees.");
+      setError(
+        "❌ Access denied. Only Managers, HR and L&D can search."
+      );
       return;
     }
 
@@ -39,18 +50,30 @@ function Search() {
 
     try {
       const params = {};
-      if (filter.skill) params.skill = filter.skill;
-      if (filter.minYears) params.minYears = filter.minYears;
-      if (filter.proficiencyLevel) params.proficiencyLevel = filter.proficiencyLevel;
 
-      const res = await API.get("/search/employees", { params });
+      Object.keys(filter).forEach((key) => {
+        if (filter[key] !== "") {
+          params[key] = filter[key];
+        }
+      });
+
+      const res = await API.get("/search/advanced", {
+        params,
+      });
+
       setResults(res.data.results || []);
     } catch (err) {
       if (err.response?.status === 403) {
-        setError("❌ Access denied. You need Manager, HR, or L&D role to search.");
+        setError(
+          "❌ You don't have permission to search employees."
+        );
       } else {
-        setError(err.response?.data?.message || "Search failed");
+        setError(
+          err.response?.data?.message ||
+            "Search failed"
+        );
       }
+
       setResults([]);
     } finally {
       setLoading(false);
@@ -59,116 +82,333 @@ function Search() {
 
   return (
     <div className="search-page">
-      <h2>🔍 Search Employees</h2>
-      <p className="subtitle">Find talent by skill, experience, and proficiency</p>
+      <h2>🔍 Advanced Employee Search</h2>
 
-      {user?.role && !["manager", "hr", "ld"].includes(user.role) && (
-        <div className="alert alert-warning" style={{ 
-          borderRadius: "12px", 
-          padding: "15px",
-          background: "#fef3c7",
-          border: "1px solid #f59e0b",
-          color: "#78350f",
-          marginBottom: "20px"
-        }}>
-          ⚠️ You are logged in as <strong>{user.role}</strong>. Only <strong>Managers, HR, and L&D</strong> can search for employees.
-        </div>
-      )}
+      <p className="subtitle">
+        Search employees by skills, department,
+        certifications and experience
+      </p>
+
+      {user?.role &&
+        !["manager", "hr", "ld"].includes(user.role) && (
+          <div className="alert alert-warning">
+            ⚠️ Only Managers, HR and L&D can
+            perform employee searches.
+          </div>
+        )}
 
       {error && (
-        <div className="alert alert-danger" style={{ 
-          borderRadius: "12px",
-          padding: "15px",
-          background: "#fee2e2",
-          border: "1px solid #ef4444",
-          color: "#991b1b",
-          marginBottom: "20px"
-        }}>
+        <div className="alert alert-danger">
           {error}
         </div>
       )}
 
-      <form className="search-form" onSubmit={handleSearch}>
+      <form
+        className="search-form"
+        onSubmit={handleSearch}
+      >
         <input
           type="text"
-          name="skill"
-          placeholder="🔧 Skill (e.g., React, Python)"
-          value={filter.skill}
+          name="skills"
+          placeholder="Skills (React, Java, Python)"
+          value={filter.skills}
           onChange={handleChange}
         />
+
+        <input
+          type="text"
+          name="department"
+          placeholder="Department"
+          value={filter.department}
+          onChange={handleChange}
+        />
+
+        <input
+          type="text"
+          name="designation"
+          placeholder="Designation"
+          value={filter.designation}
+          onChange={handleChange}
+        />
+
+        <input
+          type="text"
+          name="location"
+          placeholder="Location"
+          value={filter.location}
+          onChange={handleChange}
+        />
+
+        <input
+          type="text"
+          name="education"
+          placeholder="Education"
+          value={filter.education}
+          onChange={handleChange}
+        />
+
+        <input
+          type="text"
+          name="certification"
+          placeholder="Certification"
+          value={filter.certification}
+          onChange={handleChange}
+        />
+
         <input
           type="number"
-          name="minYears"
-          placeholder="📅 Min Years"
-          value={filter.minYears}
+          name="minExperience"
+          placeholder="Min Experience"
+          value={filter.minExperience}
           onChange={handleChange}
           min="0"
-          step="0.5"
         />
-        <select name="proficiencyLevel" value={filter.proficiencyLevel} onChange={handleChange}>
-          <option value="">📊 All Levels</option>
-          <option value="beginner">🟡 Beginner</option>
-          <option value="intermediate">🔵 Intermediate</option>
-          <option value="advanced">🟢 Advanced</option>
-          <option value="expert">🟣 Expert</option>
+
+        <input
+          type="number"
+          name="maxExperience"
+          placeholder="Max Experience"
+          value={filter.maxExperience}
+          onChange={handleChange}
+          min="0"
+        />
+
+        <select
+          name="minProficiency"
+          value={filter.minProficiency}
+          onChange={handleChange}
+        >
+          <option value="">
+            Minimum Proficiency
+          </option>
+          <option value="beginner">
+            Beginner
+          </option>
+          <option value="intermediate">
+            Intermediate
+          </option>
+          <option value="advanced">
+            Advanced
+          </option>
+          <option value="expert">
+            Expert
+          </option>
         </select>
-        <button type="submit" className="btn-search" disabled={loading || !["manager", "hr", "ld"].includes(user?.role)}>
-          {loading ? "Searching..." : "🔎 Search"}
+
+        <select
+          name="matchMode"
+          value={filter.matchMode}
+          onChange={handleChange}
+        >
+          <option value="any">
+            Match Any Skill
+          </option>
+          <option value="all">
+            Match All Skills
+          </option>
+        </select>
+
+        <button
+          type="submit"
+          className="btn-search"
+          disabled={
+            loading ||
+            !["manager", "hr", "ld"].includes(
+              user?.role
+            )
+          }
+        >
+          {loading
+            ? "Searching..."
+            : "🔍 Search"}
         </button>
       </form>
-
-      {searched && results.length === 0 && !loading && !error && (
-        <div className="no-results">
-          <span className="icon">🔍</span>
-          <h3>No employees found</h3>
-          <p>Try adjusting your search criteria</p>
-        </div>
-      )}
+            {searched &&
+        results.length === 0 &&
+        !loading &&
+        !error && (
+          <div className="no-results">
+            <span className="icon">🔍</span>
+            <h3>No Employees Found</h3>
+            <p>
+              Try changing the search filters.
+            </p>
+          </div>
+        )}
 
       {results.length > 0 && (
         <div className="results-grid">
           {results.map((item, index) => (
-            <div className="employee-card" key={index}>
-              <h3>👤 {item.employee?.name || "Employee"}</h3>
-              <p style={{ color: "var(--text)", fontSize: "14px" }}>
-                {item.employee?.email || ""}
+            <div
+              className="employee-card"
+              key={index}
+            >
+              <h3>
+                👤{" "}
+                {item.employee?.name ||
+                  "Employee"}
+              </h3>
+
+              <p className="email">
+                {item.employee?.email}
               </p>
+
               <div className="info-row">
-                <span>🏢 Role</span>
-                <span><strong>{item.employee?.role || "-"}</strong></span>
-              </div>
-              <div className="info-row">
-                <span>🏛️ Department</span>
-                <span>{item.profile?.department || "-"}</span>
-              </div>
-              <div className="info-row">
-                <span>💼 Designation</span>
-                <span>{item.profile?.designation || "-"}</span>
-              </div>
-              <div className="info-row">
-                <span>📍 Location</span>
-                <span>{item.profile?.location || "-"}</span>
+                <span>🏢 Department</span>
+                <span>
+                  {item.profile?.department ||
+                    "-"}
+                </span>
               </div>
 
-              {item.skills && item.skills.length > 0 && (
-                <div style={{ marginTop: "12px" }}>
-                  <strong>Skills:</strong>
-                  <div>
-                    {item.skills.slice(0, 3).map((skill, idx) => (
-                      <span className="skill-tag" key={idx}>
-                        {skill.skillName} ({skill.proficiencyLevel})
-                      </span>
-                    ))}
-                    {item.skills.length > 3 && (
-                      <span className="skill-tag">+{item.skills.length - 3} more</span>
+              <div className="info-row">
+                <span>💼 Designation</span>
+                <span>
+                  {item.profile?.designation ||
+                    "-"}
+                </span>
+              </div>
+
+              <div className="info-row">
+                <span>📍 Location</span>
+                <span>
+                  {item.profile?.location ||
+                    "-"}
+                </span>
+              </div>
+
+              <div className="info-row">
+                <span>🎓 Education</span>
+                <span>
+                  {item.profile?.education ||
+                    "-"}
+                </span>
+              </div>
+
+              <div className="match-score">
+                🏆 Match Score :
+                <strong>
+                  {" "}
+                  {item.matchScore}
+                </strong>
+              </div>
+
+              {item.matchPercentage !== null && (
+                <div className="match-score">
+                  🎯 Match Percentage :
+                  <strong>
+                    {" "}
+                    {item.matchPercentage}%
+                  </strong>
+                </div>
+              )}
+
+              <div
+                style={{
+                  marginTop: "15px",
+                }}
+              >
+                <strong>
+                  ✅ Matched Skills
+                </strong>
+
+                <div
+                  style={{
+                    marginTop: "8px",
+                  }}
+                >
+                  {item.matchedSkills?.length >
+                  0 ? (
+                    item.matchedSkills.map(
+                      (skill) => (
+                        <span
+                          key={skill._id}
+                          className="skill-tag"
+                        >
+                          {skill.skillName}
+                          {" ("}
+                          {
+                            skill.proficiencyLevel
+                          }
+                          {")"}
+                        </span>
+                      )
+                    )
+                  ) : (
+                    <p>No matching skills</p>
+                  )}
+                </div>
+              </div>
+
+              {item.certifications?.length >
+                0 && (
+                <div
+                  style={{
+                    marginTop: "15px",
+                  }}
+                >
+                  <strong>
+                    📜 Certifications
+                  </strong>
+
+                  <div
+                    style={{
+                      marginTop: "8px",
+                    }}
+                  >
+                    {item.certifications.map(
+                      (cert, idx) => (
+                        <span
+                          key={idx}
+                          className="skill-tag"
+                        >
+                          {
+                            cert.certificationName
+                          }
+                        </span>
+                      )
                     )}
                   </div>
                 </div>
               )}
 
-              <div className="match-score">
-                🏆 Match Score: {item.matchScore || 0}
-              </div>
+              {item.scoreBreakdown && (
+                <div
+                  style={{
+                    marginTop: "15px",
+                    fontSize: "13px",
+                    color: "#666",
+                  }}
+                >
+                  <strong>
+                    Score Breakdown
+                  </strong>
+
+                  <p>
+                    Skill Score :{" "}
+                    {
+                      item.scoreBreakdown
+                        .skillScore
+                    }
+                  </p>
+
+                  <p>
+                    Coverage Bonus :{" "}
+                    {
+                      item.scoreBreakdown
+                        .skillCoverageBonus
+                    }
+                  </p>
+
+                  <p>
+                    Certification Bonus :{" "}
+                    {
+                      item.scoreBreakdown
+                        .certificationBonus
+                    }
+                  </p>
+                </div>
+              )}
             </div>
           ))}
         </div>

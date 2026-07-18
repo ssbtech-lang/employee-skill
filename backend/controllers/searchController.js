@@ -1,10 +1,8 @@
-<<<<<<< HEAD:backend/controllers/searchController.js
 const Skill = require("../models/Skill");
 const EmployeeProfile = require("../models/EmployeeProfile");
-=======
 const User = require("../models/User");
-const Skill = require("../models/Skill");
-const EmployeeProfile = require("../models/EmployeeProfile");
+// const Skill = require("../models/Skill");
+// const EmployeeProfile = require("../models/EmployeeProfile");
 const Certification = require("../models/Certification");
 
 const {
@@ -13,7 +11,6 @@ const {
   parseSkills,
   calculateSkillScore,
 } = require("../utils/searchUtils");
->>>>>>> sreeja/backend-branch:controllers/searchController.js
 
 const levelScore = {
   beginner: 1,
@@ -48,7 +45,6 @@ const searchEmployees = async (req, res) => {
     const skills = await Skill.find(filter)
       .populate("userId", "name email role");
 
-<<<<<<< HEAD:backend/controllers/searchController.js
     // Group skills by userId
     const userSkillsMap = {};
     skills.forEach(skill => {
@@ -93,36 +89,35 @@ const searchEmployees = async (req, res) => {
 
     // Build results
     const results = Object.values(userSkillsMap).map(item => ({
-      employee: item.user,
-      profile: profileMap[item.user._id.toString()] || null,
-      skills: item.skills,
-      matchScore: Math.round(item.totalScore / item.skills.length * 10) / 10
-    }));
-=======
-    const results = skills.map((s) => {
-      let score = 0;
+    employee: item.user,
+    profile: profileMap[item.user._id.toString()] || null,
+    skills: item.skills,
+    matchScore: Math.round(item.totalScore / item.skills.length * 10) / 10
+}));
 
-      score += levelScore[s.proficiencyLevel] || 0;
-      score += s.yearsOfExperience || 0;
-      score += s.endorsementCount || 0;
+    // const results = skills.map((s) => {
+    //   let score = 0;
 
-      if (s.source === "resume") score += 2;
-      if (s.source === "endorsed") score += 3;
+    //   score += levelScore[s.proficiencyLevel] || 0;
+    //   score += s.yearsOfExperience || 0;
+    //   score += s.endorsementCount || 0;
 
-      return {
-        employee: s.userId,
-        matchedSkill: {
-          skillName: s.skillName,
-          category: s.category,
-          proficiencyLevel: s.proficiencyLevel,
-          yearsOfExperience: s.yearsOfExperience,
-          source: s.source,
-          endorsementCount: s.endorsementCount,
-        },
-        matchScore: score,
-      };
-    });
->>>>>>> sreeja/backend-branch:controllers/searchController.js
+    //   if (s.source === "resume") score += 2;
+    //   if (s.source === "endorsed") score += 3;
+
+    //   return {
+    //     employee: s.userId,
+    //     matchedSkill: {
+    //       skillName: s.skillName,
+    //       category: s.category,
+    //       proficiencyLevel: s.proficiencyLevel,
+    //       yearsOfExperience: s.yearsOfExperience,
+    //       source: s.source,
+    //       endorsementCount: s.endorsementCount,
+    //     },
+    //     matchScore: score,
+    //   };
+    // });
 
     results.sort((a, b) => b.matchScore - a.matchScore);
 
@@ -136,11 +131,8 @@ const searchEmployees = async (req, res) => {
     });
   }
 };
-<<<<<<< HEAD:backend/controllers/searchController.js
 
-module.exports = {
-  searchEmployees,
-=======
+
 const advancedEmployeeSearch = async (req, res) => {
   try {
     const {
@@ -695,5 +687,4 @@ const advancedEmployeeSearch = async (req, res) => {
 module.exports = {
   searchEmployees,
   advancedEmployeeSearch,
->>>>>>> sreeja/backend-branch:controllers/searchController.js
 };

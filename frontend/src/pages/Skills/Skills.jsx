@@ -10,7 +10,6 @@ function Skills() {
     proficiencyLevel: "beginner",
     yearsOfExperience: "",
     source: "",
-    endorsementCount: 0,
   });
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -29,11 +28,13 @@ function Skills() {
   };
 
   const handleChange = (e) => {
-    const value = e.target.type === "number" ? parseFloat(e.target.value) || 0 : e.target.value;
-    setFormData({
-      ...formData,
-      [e.target.name]: value,
-    });
+    const value =
+  e.target.type === "number"
+    ? e.target.value === ""
+      ? ""
+      : parseFloat(e.target.value)
+    : e.target.value;
+    // });
   };
 
   const handleSubmit = async (e) => {
@@ -55,7 +56,7 @@ function Skills() {
         proficiencyLevel: "beginner",
         yearsOfExperience: "",
         source: "",
-        endorsementCount: 0,
+        // endorsementCount: 0,
       });
       setEditingId(null);
       fetchSkills();
@@ -74,7 +75,7 @@ function Skills() {
       proficiencyLevel: skill.proficiencyLevel || "beginner",
       yearsOfExperience: skill.yearsOfExperience || "",
       source: skill.source || "",
-      endorsementCount: skill.endorsementCount || 0,
+      // endorsementCount: skill.endorsementCount || 0,
     });
   };
 
@@ -98,7 +99,7 @@ function Skills() {
       proficiencyLevel: "beginner",
       yearsOfExperience: "",
       source: "",
-      endorsementCount: 0,
+      // endorsementCount: 0,
     });
   };
 
@@ -145,14 +146,14 @@ function Skills() {
           value={formData.source}
           onChange={handleChange}
         />
-        <input
+        {/* <input
           type="number"
           name="endorsementCount"
           placeholder="Endorsements"
           value={formData.endorsementCount}
           onChange={handleChange}
           min="0"
-        />
+        /> */}
         <button type="submit" className="btn-submit" disabled={loading}>
           {loading ? "Saving..." : editingId ? "✏️ Update" : "➕ Add"}
         </button>

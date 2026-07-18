@@ -261,19 +261,6 @@ const getMySkills = async (req, res) => {
 const updateSkill = async (req, res) => {
   try {
     const skill = await Skill.findById(req.params.id);
-<<<<<<< HEAD:backend/controllers/skillController.js
-
-    if (!skill) {
-      return res.status(404).json({ message: "Skill not found" });
-    }
-
-    if (skill.userId.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: "You can update only your own skill" });
-    }
-
-    const updatedSkill = await Skill.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-=======
 
     if (!skill) {
       return res.status(404).json({ message: "Skill not found" });
@@ -323,7 +310,6 @@ const updateSkill = async (req, res) => {
     res.status(200).json({
       message: "Skill updated",
       updatedSkill,
->>>>>>> sreeja/backend-branch:controllers/skillController.js
     });
 
     res.status(200).json({ message: "Skill updated", updatedSkill });
@@ -346,15 +332,6 @@ const deleteSkill = async (req, res) => {
       });
     }
 
-<<<<<<< HEAD:backend/controllers/skillController.js
-    if (skill.userId.toString() !== req.user._id.toString()) {
-      return res.status(403).json({
-        message: "You can delete only your own skill",
-      });
-    }
-
-=======
->>>>>>> sreeja/backend-branch:controllers/skillController.js
     await Skill.findByIdAndDelete(req.params.id);
 
     res.status(200).json({

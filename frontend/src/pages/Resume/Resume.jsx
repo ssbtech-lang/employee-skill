@@ -1,10 +1,13 @@
 import { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import API from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import "./Resume.css";
 
 const Resume = () => {
   const { token } = useAuth();
+  const navigate = useNavigate();
+
   const [file, setFile] = useState(null);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -14,7 +17,7 @@ const Resume = () => {
     e.preventDefault();
 
     if (!file) {
-      alert("Please choose a resume");
+      alert("Please choose a resume.");
       return;
     }
 
@@ -24,9 +27,10 @@ const Resume = () => {
     try {
       setLoading(true);
       setError("");
+      setData(null);
 
-      const res = await axios.post(
-        "http://localhost:5000/api/resume/parse-resume",
+      const res = await API.post(
+        "/resume/parse-resume",
         formData,
         {
           headers: {
@@ -39,7 +43,11 @@ const Resume = () => {
       setData(res.data);
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || "Resume parsing failed");
+
+      setError(
+        err.response?.data?.message ||
+          "Resume parsing failed."
+      );
     } finally {
       setLoading(false);
     }
@@ -49,10 +57,21 @@ const Resume = () => {
     <div className="resume-page">
       <div className="upload-card">
         <h2>📄 Resume Parser</h2>
-        <p>Upload a PDF or DOCX resume to extract candidate details.</p>
+
+        <p>
+          Upload your PDF or DOCX resume to
+          automatically extract candidate
+          information.
+        </p>
 
         {error && (
-          <div className="alert alert-danger" style={{ borderRadius: "12px", marginBottom: "15px" }}>
+          <div
+            className="alert alert-danger"
+            style={{
+              borderRadius: "12px",
+              marginBottom: "15px",
+            }}
+          >
             {error}
           </div>
         )}
@@ -60,21 +79,48 @@ const Resume = () => {
         <form onSubmit={uploadResume}>
           <input
             type="file"
-            accept=".pdf,.docx"
-            onChange={(e) => setFile(e.target.files[0])}
+            accept=".pdf,.doc,.docx"
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+              setData(null);
+              setError("");
+            }}
           />
+
           {file && (
-            <p style={{ color: "var(--text)", fontSize: "14px", marginTop: "10px" }}>
-              📎 Selected: {file.name}
+            <p
+              style={{
+                color: "var(--text)",
+                fontSize: "14px",
+                marginTop: "10px",
+              }}
+            >
+              📎 Selected File:{" "}
+              <strong>{file.name}</strong>
             </p>
           )}
-          <button type="submit" disabled={loading}>
-            {loading ? "⏳ Parsing..." : "🚀 Parse Resume"}
+
+          <button
+            type="submit"
+            disabled={loading}
+          >
+            {loading
+              ? "⏳ Parsing..."
+              : "🚀 Parse Resume"}
           </button>
         </form>
 
-        <div style={{ marginTop: "20px", fontSize: "13px", color: "var(--text)" }}>
-          <strong>Supported formats:</strong> PDF, DOCX
+        <div
+          style={{
+            marginTop: "20px",
+            fontSize: "13px",
+            color: "var(--text)",
+          }}
+        >
+          <strong>
+            Supported Formats:
+          </strong>{" "}
+          PDF, DOC, DOCX
         </div>
       </div>
 
@@ -99,53 +145,91 @@ const Resume = () => {
 
           <div className="row">
             <span>💼 Experience</span>
-            <p>{data.experience || "Not found"}</p>
-          </div>
-
-          <div className="row">
-            <span>🛠️ Skills</span>
             <p>
-              {data.skills && data.skills.length > 0
-                ? data.skills.join(", ")
-                : "No skills found"}
+              {data.experience ||
+                "Not found"}
             </p>
           </div>
 
-          <div className="row" style={{ borderBottom: "none" }}>
-            <span>📊 Total Skills</span>
-            <p><strong>{data.skills?.length || 0}</strong> skills extracted</p>
+          <div className="row">
+            <span>🛠 Skills</span>
+
+            <p>
+              {data.skills?.length
+                ? data.skills.join(", ")
+                : "No skills detected"}
+            </p>
           </div>
 
-          {data.skills && data.skills.length > 0 && (
-            <div style={{ marginTop: "15px", textAlign: "center" }}>
-              <button 
-                onClick={() => alert("Add these skills to your profile!")}
-                style={{
-                  background: "linear-gradient(135deg, #7c3aed, #a78bfa)",
-                  color: "white",
-                  border: "none",
-                  padding: "10px 30px",
-                  borderRadius: "10px",
-                  fontWeight: "600",
-                  cursor: "pointer"
-                }}
-              >
-                ➕ Add Skills to Profile
-              </button>
+          <div
+            className="row"
+            style={{
+              borderBottom: "none",
+            }}
+          >
+            <span>
+              📊 Total Skills
+            </span>
+
+            <p>
+              <strong>
+                {data.skills?.length || 0}
+              </strong>{" "}
+              skills extracted
+            </p>
+          </div>
+
+          {data.skills?.length > 0 && (
+            <div
+              style={{
+                marginTop: "20px",
+                display: "flex",
+                justifyContent:
+                  "center",
+                gap: "12px",
+                flexWrap: "wrap",
+              }}
+            >
               <button
-                onClick={() => window.location.href = "/skills"}
+                onClick={() =>
+                  alert(
+                    "Automatic skill import will be added in a future update."
+                  )
+                }
                 style={{
-                  background: "transparent",
-                  color: "#7c3aed",
-                  border: "2px solid #7c3aed",
-                  padding: "10px 30px",
+                  background:
+                    "linear-gradient(135deg,#7c3aed,#a78bfa)",
+                  color: "#fff",
+                  border: "none",
+                  padding:
+                    "10px 28px",
                   borderRadius: "10px",
-                  fontWeight: "600",
                   cursor: "pointer",
-                  marginLeft: "10px"
+                  fontWeight: "600",
                 }}
               >
-                Go to Skills
+                ➕ Add Skills to
+                Profile
+              </button>
+
+              <button
+                onClick={() =>
+                  navigate("/skills")
+                }
+                style={{
+                  background:
+                    "transparent",
+                  color: "#7c3aed",
+                  border:
+                    "2px solid #7c3aed",
+                  padding:
+                    "10px 28px",
+                  borderRadius: "10px",
+                  cursor: "pointer",
+                  fontWeight: "600",
+                }}
+              >
+                View Skills
               </button>
             </div>
           )}
