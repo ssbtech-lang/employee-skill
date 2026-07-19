@@ -29,6 +29,11 @@ app.get("/", (req, res) => {
 });
 
 app.use(
+  "/api/search",
+  require("./routes/searchRoutes")
+);
+
+app.use(
   "/api/auth",
   require("./routes/authRoutes")
 );
