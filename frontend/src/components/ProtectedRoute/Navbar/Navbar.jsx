@@ -52,10 +52,10 @@ function Navbar() {
       
       <div style={{ display: "flex", gap: "20px", alignItems: "center", flexWrap: "wrap" }}>
         <Link to="/dashboard" style={{ color: "white", textDecoration: "none" }}>Dashboard</Link>
-        <Link to="/profile" style={{ color: "white", textDecoration: "none" }}>Profile</Link>
+        {/* <Link to="/profile" style={{ color: "white", textDecoration: "none" }}>Profile</Link>
         <Link to="/skills" style={{ color: "white", textDecoration: "none" }}>Skills</Link>
         <Link to="/search" style={{ color: "white", textDecoration: "none" }}>Search</Link>
-        <Link to="/resume" style={{ color: "white", textDecoration: "none" }}>📄 Resume</Link>
+        <Link to="/resume" style={{ color: "white", textDecoration: "none" }}>📄 Resume</Link> */}
         <span style={{ color: "white", opacity: 0.8 }}>👋 {user?.name || "User"}</span>
         <button onClick={handleLogout} style={{ 
           padding: "8px 20px",

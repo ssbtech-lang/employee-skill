@@ -292,6 +292,11 @@ function Search() {
                   {item.matchScore}
                 </strong>
               </div>
+              <div className="match-score">
+                🛡️ Trust Score :
+                <strong>{item.trustScore}/100</strong>
+                </div>
+
 
               {item.matchPercentage !== null && (
                 <div className="match-score">

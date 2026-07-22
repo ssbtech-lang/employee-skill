@@ -40,7 +40,7 @@ const Resume = () => {
         }
       );
 
-      setData(res.data);
+      setData(res.data.parsedData);
     } catch (err) {
       console.error(err);
 

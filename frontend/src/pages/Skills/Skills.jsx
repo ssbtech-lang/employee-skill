@@ -27,15 +27,19 @@ function Skills() {
     }
   };
 
-  const handleChange = (e) => {
-    const value =
-  e.target.type === "number"
-    ? e.target.value === ""
-      ? ""
-      : parseFloat(e.target.value)
-    : e.target.value;
-    // });
-  };
+ const handleChange = (e) => {
+  const value =
+    e.target.type === "number"
+      ? e.target.value === ""
+        ? ""
+        : parseFloat(e.target.value)
+      : e.target.value;
+
+  setFormData((prev) => ({
+    ...prev,
+    [e.target.name]: value,
+  }));
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
