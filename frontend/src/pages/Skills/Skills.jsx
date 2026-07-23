@@ -121,18 +121,24 @@ function Skills() {
           onChange={handleChange}
           required
         />
-        <input
+        {/* <input
           type="text"
           name="category"
           placeholder="Category"
           value={formData.category}
           onChange={handleChange}
-        />
+        /> */}
+         <select name="category" value={formData.category} onChange={handleChange}>
+          <option value="techical">Technical Skill</option>
+          <option value="soft"> SoftSkill</option>
+          
+        </select>
+
         <select name="proficiencyLevel" value={formData.proficiencyLevel} onChange={handleChange}>
-          <option value="beginner">🟡 Beginner</option>
-          <option value="intermediate">🔵 Intermediate</option>
-          <option value="advanced">🟢 Advanced</option>
-          <option value="expert">🟣 Expert</option>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate"> Intermediate</option>
+          <option value="advanced"> Advanced</option>
+          <option value="expert">Expert</option>
         </select>
         <input
           type="number"
@@ -143,13 +149,16 @@ function Skills() {
           min="0"
           step="0.5"
         />
-        <input
-          type="text"
-          name="source"
-          placeholder="Source"
-          value={formData.source}
-          onChange={handleChange}
-        />
+        <select
+  name="source"
+  value={formData.source}
+  onChange={handleChange}
+>
+  <option value="">Select Source</option>
+  <option value="self">Self</option>
+  <option value="resume">Resume</option>
+  <option value="endorsed">Endorsed</option>
+</select>
         {/* <input
           type="number"
           name="endorsementCount"
@@ -177,7 +186,7 @@ function Skills() {
               <th>Level</th>
               <th>Years</th>
               <th>Source</th>
-              <th>⭐ Endorsements</th>
+              <th>Endorsements</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -200,13 +209,13 @@ function Skills() {
                   </td>
                   <td>{skill.yearsOfExperience || 0}</td>
                   <td>{skill.source || "-"}</td>
-                  <td>⭐ {skill.endorsementCount || 0}</td>
+                  <td>{skill.endorsementCount || 0}</td>
                   <td>
                     <button className="btn-edit" onClick={() => editSkill(skill)}>
-                      ✏️ Edit
+                       Edit
                     </button>
                     <button className="btn-delete" onClick={() => deleteSkill(skill._id)}>
-                      🗑️ Delete
+                       Delete
                     </button>
                   </td>
                 </tr>

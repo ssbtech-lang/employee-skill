@@ -652,6 +652,7 @@ const advancedEmployeeSearch = async (req, res) => {
       limit: pageLimit,
       totalPages,
       matchMode: normalizedMatchMode,
+      
       appliedFilters: {
         skills: requestedSkills,
         department: department || null,
